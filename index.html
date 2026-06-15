@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Portfolio — Ulugbekiy</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0C0E14;
+    --surface:  #141720;
+    --card:     #181C26;
+    --border:   rgba(255,255,255,0.07);
+    --accent:   #3B6EF8;
+    --accent-l: #6A95FF;
+    --white:    #E8EAF4;
+    --muted:    rgba(232,234,244,0.45);
+    --dim:      rgba(232,234,244,0.25);
+  }
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--white); font-family: 'Inter', sans-serif; line-height: 1.6; }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(12,14,20,0.9); backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5%; height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-name {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem;
+    color: var(--white);
+  }
+  .nav-name span { color: var(--accent-l); }
+  .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+  .nav-links a { font-size: 0.82rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--white); }
+  .hire-btn {
+    background: var(--accent); color: #fff;
+    border: none; border-radius: 6px;
+    padding: 0.45rem 1.1rem; font-size: 0.8rem; font-weight: 600;
+    cursor: pointer; text-decoration: none;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 100px 5% 80px; text-align: center;
+    background: radial-gradient(ellipse at 50% 0%, rgba(59,110,248,0.10) 0%, transparent 60%);
+  }
+  .hero-eyebrow {
+    display: inline-block; font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent-l); margin-bottom: 1.2rem;
+    background: rgba(59,110,248,0.1); padding: 0.3rem 0.9rem;
+    border-radius: 20px; border: 1px solid rgba(59,110,248,0.25);
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1.08; letter-spacing: -0.02em;
+    margin-bottom: 1.2rem; color: var(--white);
+  }
+  .hero h1 .grad {
+    background: linear-gradient(135deg, var(--accent-l), #A78BFA);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    font-size: 1.05rem; color: var(--muted); max-width: 520px;
+    margin: 0 auto 2.5rem; line-height: 1.75;
+  }
+  .hero-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; margin-bottom: 2.5rem; }
+  .tag {
+    font-size: 0.75rem; font-weight: 500; padding: 0.3rem 0.8rem;
+    border-radius: 20px; border: 1px solid var(--border);
+    color: var(--muted);
+  }
+  .hero-btns { display: flex; gap: 0.8rem; justify-content: center; }
+  .btn-p {
+    background: var(--accent); color: #fff; border: none; border-radius: 8px;
+    padding: 0.8rem 1.8rem; font-size: 0.9rem; font-weight: 600;
+    cursor: pointer; text-decoration: none; display: inline-block;
+    transition: all 0.2s;
+  }
+  .btn-p:hover { background: var(--accent-l); transform: translateY(-2px); }
+  .btn-g {
+    background: transparent; color: var(--white); border: 1px solid var(--border);
+    border-radius: 8px; padding: 0.8rem 1.8rem; font-size: 0.9rem; font-weight: 500;
+    cursor: pointer; text-decoration: none; display: inline-block;
+    transition: border-color 0.2s;
+  }
+  .btn-g:hover { border-color: rgba(255,255,255,0.25); }
+
+  /* ── STATS STRIP ── */
+  .stats-strip {
+    background: var(--surface); border: 1px solid var(--border);
+    margin: 0 5% 0; border-radius: 12px;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+  }
+  .stat {
+    padding: 1.4rem 1.2rem; text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .stat:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800;
+    color: var(--white); display: block; margin-bottom: 0.2rem;
+  }
+  .stat-label { font-size: 0.75rem; color: var(--muted); }
+
+  /* ── SECTION ── */
+  .section { padding: 80px 5%; }
+  .section-eyebrow {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent-l); margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    color: var(--white); margin-bottom: 0.6rem; line-height: 1.1;
+  }
+  .section-sub { font-size: 0.9rem; color: var(--muted); max-width: 500px; line-height: 1.7; margin-bottom: 3rem; }
+
+  /* ── PROJECT CARDS ── */
+  .projects-grid { display: flex; flex-direction: column; gap: 2px; }
+
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden;
+    margin-bottom: 1.5rem;
+    transition: border-color 0.2s;
+  }
+  .project-card:hover { border-color: rgba(59,110,248,0.3); }
+
+  .project-header {
+    padding: 2rem 2.4rem 0;
+    display: flex; align-items: flex-start;
+    justify-content: space-between; gap: 1.5rem;
+  }
+  .project-number {
+    font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent-l); margin-bottom: 0.4rem;
+  }
+  .project-title {
+    font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800;
+    color: var(--white); margin-bottom: 0.3rem; line-height: 1.15;
+  }
+  .project-subtitle { font-size: 0.82rem; color: var(--muted); }
+  .project-preview {
+    min-width: 80px; max-width: 80px; height: 60px;
+    background: var(--surface); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; flex-shrink: 0;
+    border: 1px solid var(--border);
+  }
+
+  .project-body {
+    padding: 1.6rem 2.4rem 2rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem;
+  }
+  .project-block h4 {
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--dim); margin-bottom: 0.5rem;
+  }
+  .project-block p { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+  .project-block .pill-row { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .pill {
+    font-size: 0.68rem; font-weight: 600; padding: 0.2rem 0.6rem;
+    border-radius: 20px; background: rgba(59,110,248,0.12);
+    color: var(--accent-l); border: 1px solid rgba(59,110,248,0.2);
+  }
+
+  .project-footer {
+    border-top: 1px solid var(--border);
+    padding: 1rem 2.4rem;
+    background: rgba(255,255,255,0.02);
+  }
+  .project-result {
+    font-size: 0.82rem; color: var(--muted); font-style: italic;
+  }
+  .project-result strong { color: var(--white); font-style: normal; font-weight: 600; }
+
+  /* ── WHAT I OFFER ── */
+  .offer { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .offer-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: var(--border); border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+  }
+  .offer-item {
+    background: var(--card); padding: 1.8rem 1.5rem;
+  }
+  .offer-icon { font-size: 1.6rem; margin-bottom: 0.8rem; display: block; }
+  .offer-item h4 { font-size: 0.9rem; font-weight: 600; color: var(--white); margin-bottom: 0.4rem; }
+  .offer-item p { font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
+
+  /* ── CONTACT ── */
+  .contact { padding: 80px 5%; text-align: center; }
+  .contact-card {
+    max-width: 560px; margin: 0 auto;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 3rem 2.5rem;
+  }
+  .contact-card h2 {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 2rem; color: var(--white); margin-bottom: 0.6rem;
+  }
+  .contact-card p { font-size: 0.9rem; color: var(--muted); margin-bottom: 2rem; line-height: 1.7; }
+  .contact-ways { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 2rem; }
+  .contact-row {
+    display: flex; align-items: center; gap: 0.8rem;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 0.8rem 1rem;
+    font-size: 0.85rem; color: var(--muted); text-align: left;
+  }
+  .contact-row .ci { font-size: 1rem; }
+  .contact-row span { color: var(--white); font-weight: 500; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 1.5rem 5%; border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.75rem; color: var(--dim); flex-wrap: wrap; gap: 0.5rem;
+  }
+  footer a { color: var(--accent-l); text-decoration: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .stats-strip { grid-template-columns: 1fr 1fr; }
+    .offer-grid { grid-template-columns: 1fr 1fr; }
+    .project-body { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .stats-strip { grid-template-columns: 1fr 1fr; }
+    .offer-grid { grid-template-columns: 1fr; }
+    .stat { border-right: none; border-bottom: 1px solid var(--border); }
+    .stat:last-child { border-bottom: none; }
+    nav .nav-links { display: none; }
+    .hero h1 { font-size: 2.2rem; }
+    .project-header { flex-direction: column; }
+    .project-preview { display: none; }
+    .project-body { padding: 1.2rem 1.4rem 1.6rem; }
+    .project-header { padding: 1.4rem 1.4rem 0; }
+    .project-footer { padding: 0.8rem 1.4rem; }
+    .hero-btns { flex-direction: column; align-items: center; }
+    footer { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-name">U.<span>Portfolio</span></div>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#offer">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="hire-btn">Hire Me</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Open for freelance work</div>
+  <h1>Clean layouts.<br><span class="grad">Delivered on time.</span></h1>
+  <p class="hero-sub">I help small businesses and creators look more professional online — through HTML editing, graphic design, and clear visual structure.</p>
+  <div class="hero-tags">
+    <span class="tag">HTML / CSS</span>
+    <span class="tag">Graphic Design</span>
+    <span class="tag">Social Media</span>
+    <span class="tag">English Fluency</span>
+    <span class="tag">Tashkent, Uzbekistan</span>
+  </div>
+  <div class="hero-btns">
+    <a href="#projects" class="btn-p">See My Work</a>
+    <a href="#contact" class="btn-g">Get in Touch</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stat">
+    <span class="stat-num">4</span>
+    <div class="stat-label">Projects Built</div>
+  </div>
+  <div class="stat">
+    <span class="stat-num">2</span>
+    <div class="stat-label">Design Disciplines</div>
+  </div>
+  <div class="stat">
+    <span class="stat-num">C1</span>
+    <div class="stat-label">English Level</div>
+  </div>
+  <div class="stat">
+    <span class="stat-num">48h</span>
+    <div class="stat-label">Avg. Turnaround</div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section class="section" id="projects">
+  <div class="section-eyebrow">Selected Work</div>
+  <div class="section-title">Four spec projects,<br>built from scratch.</div>
+  <p class="section-sub">These are concept redesigns — I chose real business types and built what they should actually look like online.</p>
+
+  <div class="projects-grid">
+
+    <!-- PROJECT 1 -->
+    <div class="project-card">
+      <div class="project-header">
+        <div>
+          <div class="project-number">Project 01</div>
+          <div class="project-title">Tashkent Bakery Landing Page</div>
+          <div class="project-subtitle">Spec Redesign — One-page website concept for a local bakery</div>
+        </div>
+        <div class="project-preview">🍞</div>
+      </div>
+      <div class="project-body">
+        <div class="project-block">
+          <h4>Problem</h4>
+          <p>Many local bakeries in Tashkent have no web presence or use outdated layouts that fail to communicate quality, hours, or menu clearly.</p>
+        </div>
+        <div class="project-block">
+          <h4>My Role</h4>
+          <p>Full page structure, visual hierarchy, color system, copywriting, mobile-responsive layout, and CTA placement.</p>
+        </div>
+        <div class="project-block">
+          <h4>Tools Used</h4>
+          <div class="pill-row">
+            <span class="pill">HTML</span>
+            <span class="pill">CSS</span>
+            <span class="pill">Design thinking</span>
+            <span class="pill">Google Fonts</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-footer">
+        <div class="project-result">
+          Result: <strong>Warm, trustworthy brand identity</strong> with a sticky nav, hero with stat cards, 3 feature cards, 6-item menu preview, testimonials with Tashkent neighbourhood names, and a full contact footer with hours and map placeholder.
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 2 -->
+    <div class="project-card">
+      <div class="project-header">
+        <div>
+          <div class="project-number">Project 02</div>
+          <div class="project-title">Coffee Shop Instagram Campaign</div>
+          <div class="project-subtitle">3 Posts + 1 Story — Promo set for a fictional coffee brand</div>
+        </div>
+        <div class="project-preview">☕</div>
+      </div>
+      <div class="project-body">
+        <div class="project-block">
+          <h4>Problem</h4>
+          <p>Small coffee businesses often post inconsistent social graphics — mismatched fonts, no brand colour, CTAs buried in the caption. The result looks unprofessional.</p>
+        </div>
+        <div class="project-block">
+          <h4>My Role</h4>
+          <p>Campaign concept, post layout design, typography system, single accent colour discipline, caption writing for all 4 assets.</p>
+        </div>
+        <div class="project-block">
+          <h4>Tools Used</h4>
+          <div class="pill-row">
+            <span class="pill">HTML</span>
+            <span class="pill">CSS</span>
+            <span class="pill">Brand design</span>
+            <span class="pill">Social media layout</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-footer">
+        <div class="project-result">
+          Result: <strong>Cohesive 4-piece campaign</strong> — grand opening post, new drink announcement, weekend discount, and a story, all using deep espresso background + cream text + one muted orange accent throughout.
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 3 -->
+    <div class="project-card">
+      <div class="project-header">
+        <div>
+          <div class="project-number">Project 03</div>
+          <div class="project-title">Freelancer Hero Section</div>
+          <div class="project-subtitle">Personal Branding Concept — Conversion-focused hero for a junior freelancer</div>
+        </div>
+        <div class="project-preview">💻</div>
+      </div>
+      <div class="project-body">
+        <div class="project-block">
+          <h4>Problem</h4>
+          <p>Junior freelancers often lack a strong first impression online — no clear role description, no trust signals, no obvious way to take action.</p>
+        </div>
+        <div class="project-block">
+          <h4>My Role</h4>
+          <p>Hero layout structure, dark mode visual system, gradient accent application, stats strip design, and browser mockup card with sample project.</p>
+        </div>
+        <div class="project-block">
+          <h4>Tools Used</h4>
+          <div class="pill-row">
+            <span class="pill">HTML</span>
+            <span class="pill">CSS</span>
+            <span class="pill">Personal branding</span>
+            <span class="pill">Conversion design</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-footer">
+        <div class="project-result">
+          Result: <strong>Full-screen dark mode hero</strong> with name, role line, dual CTAs ("View Work" + "Contact"), an animated availability badge, stats strip, and a floating browser mockup card — all in a single viewport.
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 4 -->
+    <div class="project-card">
+      <div class="project-header">
+        <div>
+          <div class="project-number">Project 04</div>
+          <div class="project-title">Service Business Website Redesign</div>
+          <div class="project-subtitle">Mobile-First Layout — Full service page for a Tashkent barbershop</div>
+        </div>
+        <div class="project-preview">✂</div>
+      </div>
+      <div class="project-body">
+        <div class="project-block">
+          <h4>Problem</h4>
+          <p>Most local service businesses have no website at all — or one that is unreadable on mobile, missing pricing, and has no way to contact or book directly.</p>
+        </div>
+        <div class="project-block">
+          <h4>My Role</h4>
+          <p>Mobile-first architecture, 6-section layout design, FAQ accordion, 3-tier pricing with a "most popular" highlight, and a full contact form with service dropdown.</p>
+        </div>
+        <div class="project-block">
+          <h4>Tools Used</h4>
+          <div class="pill-row">
+            <span class="pill">HTML</span>
+            <span class="pill">CSS</span>
+            <span class="pill">Mobile-first</span>
+            <span class="pill">UX structure</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-footer">
+        <div class="project-result">
+          Result: <strong>Professional 6-section service site</strong> — hero with stats, services grid, why-choose-us block, pricing cards, expandable FAQ, and a working appointment request form. Fully responsive.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHAT I OFFER -->
+<section class="offer section" id="offer">
+  <div class="section-eyebrow">What I Do</div>
+  <div class="section-title">Small tasks.<br>Real results.</div>
+  <p class="section-sub">I focus on specific, tangible outcomes — not vague "full-service" promises.</p>
+  <div class="offer-grid">
+    <div class="offer-item">
+      <span class="offer-icon">🖥️</span>
+      <h4>HTML Layout Editing</h4>
+      <p>Fix spacing, align sections, clean up messy structure. I work in existing code or build from scratch.</p>
+    </div>
+    <div class="offer-item">
+      <span class="offer-icon">📱</span>
+      <h4>Mobile Formatting</h4>
+      <p>Make pages readable and functional on phones. CSS fixes, stacking issues, button sizing — done right.</p>
+    </div>
+    <div class="offer-item">
+      <span class="offer-icon">🎨</span>
+      <h4>Social Media Design</h4>
+      <p>Instagram posts, stories, and promo graphics. Consistent typography and brand colors across each piece.</p>
+    </div>
+    <div class="offer-item">
+      <span class="offer-icon">✍️</span>
+      <h4>Layout & Visual Cleanup</h4>
+      <p>Improve hierarchy, fix CTAs, tighten spacing, sharpen the overall feel — without rebuilding from scratch.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-card">
+    <h2>Let's work together.</h2>
+    <p>I take on small, specific projects with fast turnaround. If you have one page that needs cleaning up, a set of social graphics, or a hero section — send me a message.</p>
+    <div class="contact-ways">
+      <div class="contact-row">
+        <span class="ci">📧</span>
+        <span>mr.ulugbekiy@email.com</span>
+      </div>
+      <div class="contact-row">
+        <span class="ci">📱</span>
+        <span>Telegram: @mr_ulugbekiy</span>
+      </div>
+      <div class="contact-row">
+        <span class="ci">🌐</span>
+        <span>portfolio.ulugbekiy.com</span>
+      </div>
+    </div>
+    <a href="mailto:mr.ulugbekiy@email.com" class="btn-p" style="display:block;text-align:center">Send Me a Message</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Ulugbekiy · Tashkent, Uzbekistan</span>
+  <a href="#">Back to top ↑</a>
+</footer>
+
+</body>
+</html>

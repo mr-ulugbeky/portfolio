@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Freelancer Hero Section — Personal Branding Concept</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0F1117;
+    --surface:  #181C27;
+    --border:   rgba(255,255,255,0.06);
+    --accent:   #6C8FFF;
+    --accent-g: linear-gradient(135deg, #6C8FFF, #9B6CFF);
+    --text:     #E8EAF0;
+    --muted:    rgba(232,234,240,0.45);
+    --white:    #FFFFFF;
+  }
+
+  html, body {
+    height: 100%; background: var(--bg);
+    font-family: 'Inter', sans-serif;
+    color: var(--text); overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE overlay ── */
+  body::before {
+    content: "";
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    opacity: 0.5;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+    background: rgba(15,17,23,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 1rem; color: var(--white);
+    letter-spacing: 0.02em;
+  }
+  .nav-logo span {
+    background: var(--accent-g);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.82rem; font-weight: 500;
+    color: var(--muted); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #4ADE80;
+    box-shadow: 0 0 0 4px rgba(74,222,128,0.15);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(74,222,128,0.15); }
+    50% { box-shadow: 0 0 0 7px rgba(74,222,128,0.05); }
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative; z-index: 1;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 4rem;
+    align-items: center;
+    padding: 80px 5% 60px;
+    max-width: 1200px; margin: 0 auto;
+  }
+
+  /* Glow behind left side */
+  .hero::before {
+    content: "";
+    position: absolute; top: 20%; left: -5%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(108,143,255,0.08) 0%, transparent 70%);
+    pointer-events: none; z-index: -1;
+  }
+
+  /* ── LEFT ── */
+  .hero-left {}
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1.4rem;
+  }
+  .eyebrow-line {
+    width: 24px; height: 1px; background: var(--accent);
+  }
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 800; line-height: 1.08;
+    color: var(--white);
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.02em;
+  }
+  h1 .name-accent {
+    background: var(--accent-g);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-role {
+    font-size: 1rem; font-weight: 400;
+    color: var(--muted); margin-bottom: 1.8rem;
+    line-height: 1.6; max-width: 440px;
+  }
+  .hero-desc {
+    font-size: 0.9rem; color: var(--muted);
+    line-height: 1.75; max-width: 420px;
+    margin-bottom: 2.4rem;
+  }
+  .hero-btns {
+    display: flex; gap: 0.9rem; flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--white); font-weight: 600; font-size: 0.875rem;
+    border: none; border-radius: 8px;
+    padding: 0.75rem 1.6rem;
+    cursor: pointer; transition: all 0.2s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover {
+    background: #8AABFF;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(108,143,255,0.3);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text); font-weight: 500; font-size: 0.875rem;
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 0.75rem 1.6rem;
+    cursor: pointer; transition: all 0.2s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.03); }
+
+  /* ── STATS STRIP ── */
+  .stats-strip {
+    display: flex; gap: 0; align-items: stretch;
+    border: 1px solid var(--border); border-radius: 10px;
+    overflow: hidden; background: var(--surface);
+    max-width: 440px;
+  }
+  .stat-item {
+    flex: 1; padding: 0.8rem 1rem;
+    border-right: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.78rem; color: var(--muted); font-weight: 400;
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-icon { font-size: 1rem; flex-shrink: 0; }
+
+  /* ── RIGHT — MOCKUP CARD ── */
+  .hero-right { position: relative; }
+  .mockup-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+  }
+  .mockup-topbar {
+    background: #12151F;
+    padding: 12px 16px;
+    display: flex; align-items: center; gap: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot.r { background: #FF5F57; }
+  .dot.y { background: #FFBD2E; }
+  .dot.g { background: #28CA41; }
+  .mockup-url {
+    flex: 1; background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border); border-radius: 6px;
+    padding: 0.2rem 0.6rem; font-size: 0.68rem; color: var(--muted);
+    text-align: center;
+  }
+  .mockup-body { padding: 28px; }
+  .m-eyebrow {
+    font-size: 0.6rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--accent); margin-bottom: 0.5rem;
+  }
+  .m-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem; font-weight: 800; color: var(--white);
+    margin-bottom: 0.5rem; line-height: 1.2;
+  }
+  .m-sub {
+    font-size: 0.72rem; color: var(--muted);
+    margin-bottom: 1.4rem; line-height: 1.5;
+  }
+  .m-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.4rem; }
+  .m-tag {
+    font-size: 0.62rem; font-weight: 600;
+    padding: 0.25rem 0.6rem; border-radius: 20px;
+    letter-spacing: 0.06em;
+  }
+  .m-tag.blue { background: rgba(108,143,255,0.15); color: var(--accent); }
+  .m-tag.purple { background: rgba(155,108,255,0.15); color: #9B6CFF; }
+  .m-tag.green { background: rgba(74,222,128,0.12); color: #4ADE80; }
+  .m-img-row {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+    margin-bottom: 1.2rem;
+  }
+  .m-img {
+    border-radius: 8px; aspect-ratio: 1;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem; background: #12151F;
+    border: 1px solid var(--border);
+  }
+  .m-btn {
+    display: block; width: 100%;
+    background: var(--accent); color: var(--white);
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 0.78rem; border: none; border-radius: 8px;
+    padding: 0.65rem; cursor: pointer;
+  }
+
+  /* Floating badge */
+  .float-badge {
+    position: absolute; top: -16px; right: -16px;
+    background: #4ADE80; color: #0A1A0F;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.68rem; font-weight: 800;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 0.5rem 0.9rem; border-radius: 30px;
+    box-shadow: 0 4px 16px rgba(74,222,128,0.3);
+    white-space: nowrap;
+  }
+
+  /* ── PORTFOLIO LABEL ── */
+  .portfolio-label {
+    position: fixed; bottom: 1.2rem; right: 1.2rem;
+    font-size: 0.68rem; color: var(--muted);
+    background: var(--surface); padding: 0.4rem 0.8rem;
+    border-radius: 6px; border: 1px solid var(--border);
+    z-index: 200;
+  }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding: 80px 5% 40px; }
+    .hero-right { max-width: 400px; }
+    nav .nav-links { display: none; }
+  }
+  @media (max-width: 500px) {
+    .stats-strip { flex-direction: column; }
+    .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
+    .stat-item:last-child { border-bottom: none; }
+    h1 { font-size: 2.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">U.<span>Dev</span></div>
+  <ul class="nav-links">
+    <li><a href="#">Work</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <div class="nav-dot" title="Available for work"></div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="eyebrow-line"></div>
+      Available for freelance
+    </div>
+    <h1>
+      Hi, I'm<br>
+      <span class="name-accent">Ulugbek.</span>
+    </h1>
+    <p class="hero-role">HTML Editor &nbsp;·&nbsp; Graphic Design Assistant &nbsp;·&nbsp; English Fluency</p>
+    <p class="hero-desc">
+      I help small businesses look sharp online. Clean page structure, well-organized layouts, and on-time delivery — every time. Based in Tashkent, working globally.
+    </p>
+    <div class="hero-btns">
+      <a href="#" class="btn-primary">View Work</a>
+      <a href="#" class="btn-ghost">Contact Me</a>
+    </div>
+    <div class="stats-strip">
+      <div class="stat-item">
+        <span class="stat-icon">⚡</span>
+        Fast turnaround
+      </div>
+      <div class="stat-item">
+        <span class="stat-icon">🎯</span>
+        Clean layouts
+      </div>
+      <div class="stat-item">
+        <span class="stat-icon">🌐</span>
+        English fluency
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="float-badge">Open to Work</div>
+    <div class="mockup-card">
+      <div class="mockup-topbar">
+        <span class="dot r"></span>
+        <span class="dot y"></span>
+        <span class="dot g"></span>
+        <div class="mockup-url">portfolio.ulugbek.uz</div>
+      </div>
+      <div class="mockup-body">
+        <div class="m-eyebrow">Recent Project</div>
+        <div class="m-title">Bakery Landing<br>Page Redesign</div>
+        <div class="m-sub">Built from brief to launch — responsive HTML, warm visual design, Tashkent-specific copy.</div>
+        <div class="m-tags">
+          <span class="m-tag blue">HTML / CSS</span>
+          <span class="m-tag purple">Visual Design</span>
+          <span class="m-tag green">Responsive</span>
+        </div>
+        <div class="m-img-row">
+          <div class="m-img">🍞</div>
+          <div class="m-img">🎨</div>
+          <div class="m-img">📱</div>
+        </div>
+        <button class="m-btn">View Case Study →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="portfolio-label">Freelancer Hero Section — Personal Branding Concept</div>
+
+</body>
+</html>

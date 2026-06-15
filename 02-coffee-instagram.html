@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Coffee Shop Instagram Promo Set — 3 Posts + 1 Story</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #1A1008;
+    font-family: 'DM Sans', sans-serif;
+    color: #F5EDDC;
+    min-height: 100vh;
+    padding: 40px 5%;
+  }
+  .page-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: #C07A3A; margin-bottom: 0.5rem;
+  }
+  .page-heading {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem; color: #F5EDDC;
+    margin-bottom: 3.5rem; font-weight: 700;
+  }
+
+  /* ── LAYOUT ── */
+  .posts-row {
+    display: flex; gap: 2rem;
+    flex-wrap: wrap; justify-content: center;
+    margin-bottom: 3rem;
+  }
+
+  /* Shared card shell */
+  .card {
+    background: #1E1108;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    flex-shrink: 0;
+  }
+
+  /* ── POST (1:1 — 400×400) ── */
+  .post {
+    width: 380px;
+    height: 380px;
+    position: relative;
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+    padding: 28px;
+  }
+  .post-bg {
+    position: absolute; inset: 0;
+    z-index: 0;
+  }
+  .post-content { position: relative; z-index: 2; }
+  .post-badge {
+    display: inline-block;
+    font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 0.10em; text-transform: uppercase;
+    padding: 0.25rem 0.7rem; border-radius: 20px;
+    margin-bottom: 0.7rem;
+  }
+  .post h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem; font-weight: 800;
+    line-height: 1.1; margin-bottom: 0.6rem;
+  }
+  .post p {
+    font-size: 0.82rem; font-weight: 300;
+    line-height: 1.5; margin-bottom: 1.1rem;
+    opacity: 0.8;
+  }
+  .post-cta {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.5rem 1.3rem; border-radius: 30px;
+    text-decoration: none;
+    cursor: pointer; border: none;
+  }
+  .post-handle {
+    position: absolute; top: 20px; left: 28px;
+    z-index: 2;
+    font-size: 0.72rem; font-weight: 500;
+    letter-spacing: 0.08em; opacity: 0.7;
+  }
+
+  /* ── POST 1: GRAND OPENING ── */
+  .p1 .post-bg {
+    background: radial-gradient(ellipse at 70% 40%, #3A1800 0%, #110800 60%);
+  }
+  .p1::before {
+    content: "☕"; font-size: 9rem;
+    position: absolute; top: 16px; right: 20px;
+    z-index: 1; opacity: 0.18; line-height: 1;
+  }
+  .p1 .post-badge { background: #C07A3A; color: #1A1008; }
+  .p1 h2 { color: #F5EDDC; }
+  .p1 .post-cta { background: #C07A3A; color: #1A1008; }
+
+  /* ── POST 2: NEW DRINK ── */
+  .p2 .post-bg {
+    background: linear-gradient(150deg, #0F0700 0%, #2B1000 60%, #1A0D04 100%);
+  }
+  .p2::before {
+    content: "🧊"; font-size: 7rem;
+    position: absolute; top: 24px; right: 24px;
+    z-index: 1; opacity: 0.22; line-height: 1;
+  }
+  .p2 .post-badge { border: 1px solid #C07A3A; color: #C07A3A; background: transparent; }
+  .p2 h2 { color: #C07A3A; }
+  .p2 h2 span { color: #F5EDDC; }
+  .p2 .post-cta { background: transparent; color: #C07A3A; border: 1.5px solid #C07A3A; }
+  .p2 .price-tag {
+    position: absolute; top: 24px; right: 24px; z-index: 3;
+    background: #C07A3A; color: #1A1008;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.3rem;
+    width: 72px; height: 72px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; line-height: 1.1;
+    box-shadow: 0 4px 12px rgba(192,122,58,0.4);
+  }
+  .p2 .price-tag small { font-size: 0.55rem; font-weight: 700; letter-spacing: 0.06em; }
+
+  /* ── POST 3: WEEKEND DISCOUNT ── */
+  .p3 .post-bg {
+    background: linear-gradient(135deg, #1A0A02 0%, #2F1200 50%, #120700 100%);
+  }
+  .p3::before {
+    content: ""; position: absolute; inset: 0; z-index: 1;
+    background: repeating-linear-gradient(45deg, rgba(192,122,58,0.04) 0px, rgba(192,122,58,0.04) 1px, transparent 1px, transparent 12px);
+  }
+  .p3 .post-badge { background: rgba(192,122,58,0.15); color: #C07A3A; }
+  .p3 h2 { color: #F5EDDC; }
+  .p3 h2 em { color: #C07A3A; font-style: normal; font-size: 3rem; }
+  .p3 .post-cta { background: #F5EDDC; color: #1A1008; }
+
+  /* ── STORY (9:16 — 220×390) ── */
+  .story-wrap { display: flex; flex-direction: column; align-items: center; }
+  .story-label {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #C07A3A; margin-bottom: 0.8rem;
+  }
+  .story {
+    width: 220px; height: 390px;
+    position: relative; border-radius: 20px; overflow: hidden;
+    display: flex; flex-direction: column;
+    justify-content: space-between; padding: 22px 20px;
+    background: linear-gradient(180deg, #0D0600 0%, #2A1000 100%);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+  }
+  .story::before {
+    content: "";
+    position: absolute; inset: 0; z-index: 0;
+    background: radial-gradient(circle at 50% 55%, rgba(192,122,58,0.18) 0%, transparent 70%);
+  }
+  .story-top, .story-bottom { position: relative; z-index: 1; }
+  .story-handle {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.68rem; font-weight: 500; opacity: 0.7;
+  }
+  .story-avatar {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: #C07A3A; font-size: 0.8rem;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .story-center {
+    position: relative; z-index: 1;
+    text-align: center;
+  }
+  .story-cup { font-size: 5rem; display: block; margin-bottom: 0.6rem; }
+  .story h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem; font-weight: 800;
+    line-height: 1.15; color: #F5EDDC;
+    margin-bottom: 0.4rem;
+  }
+  .story h2 em { color: #C07A3A; font-style: normal; }
+  .story-sub { font-size: 0.72rem; opacity: 0.65; line-height: 1.4; }
+  .story-bottom { text-align: center; }
+  .story-cta {
+    display: block; width: 100%;
+    background: #C07A3A; color: #1A1008;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem; font-weight: 800;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.6rem; border-radius: 30px;
+    border: none; cursor: pointer; margin-bottom: 0.6rem;
+  }
+  .story-swipe {
+    font-size: 0.62rem; color: rgba(245,237,220,0.4);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── CAPTION ── */
+  .card-caption {
+    padding: 16px 20px;
+    font-size: 0.78rem; color: rgba(245,237,220,0.55);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    font-style: italic; line-height: 1.5;
+  }
+
+  /* ── KEY ── */
+  .key-section { margin-top: 3rem; }
+  .key-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: #C07A3A; margin-bottom: 1.2rem;
+  }
+  .key-grid { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+  .key-chip {
+    background: #1E1108; border-radius: 10px;
+    padding: 0.8rem 1.2rem; font-size: 0.82rem;
+    border: 1px solid rgba(192,122,58,0.15);
+  }
+  .key-chip strong { color: #C07A3A; display: block; margin-bottom: 0.2rem; }
+
+  @media (max-width: 600px) {
+    .post { width: 320px; height: 320px; }
+    .post h2 { font-size: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-title">Portfolio Project 2</div>
+<div class="page-heading">Coffee Shop Instagram Promo Set — 3 Posts + 1 Story</div>
+
+<div class="posts-row">
+
+  <!-- POST 1: GRAND OPENING -->
+  <div>
+    <div class="card post p1">
+      <div class="post-bg"></div>
+      <div class="post-handle">@brewnoire.uz</div>
+      <div class="post-content">
+        <span class="post-badge">Grand Opening</span>
+        <h2>We're officially open.</h2>
+        <p>Specialty coffee, slow mornings, and a place that feels like yours. Come in. First cup is on us.</p>
+        <button class="post-cta">📍 Find Us</button>
+      </div>
+    </div>
+    <div class="card-caption">Caption: "The doors are open. The espresso is ready. Come say hello. ☕ Link in bio for location and hours."</div>
+  </div>
+
+  <!-- POST 2: NEW DRINK -->
+  <div>
+    <div class="card post p2">
+      <div class="post-bg"></div>
+      <div class="post-handle">@brewnoire.uz</div>
+      <div class="price-tag"><small>only</small>18K</div>
+      <div class="post-content">
+        <span class="post-badge">New Arrival</span>
+        <h2><span>Iced</span><br>Cardamom<br>Latte</h2>
+        <p>Cold brew + house cardamom syrup + oat milk. Summer in a glass.</p>
+        <button class="post-cta">Try It This Week →</button>
+      </div>
+    </div>
+    <div class="card-caption">Caption: "We've been testing this for weeks. Worth every sip. Available all summer — 18,000 soum."</div>
+  </div>
+
+  <!-- POST 3: WEEKEND DISCOUNT -->
+  <div>
+    <div class="card post p3">
+      <div class="post-bg"></div>
+      <div class="post-handle">@brewnoire.uz</div>
+      <div class="post-content">
+        <span class="post-badge">This Weekend Only</span>
+        <h2><em>20%</em> off<br>every order,<br>Sat & Sun.</h2>
+        <p>No code needed. Just show up — anytime between 8 AM and 3 PM.</p>
+        <button class="post-cta">See You Saturday</button>
+      </div>
+    </div>
+    <div class="card-caption">Caption: "Weekend energy deserves a discount. 20% off everything this Sat & Sun. See you there ☕"</div>
+  </div>
+
+  <!-- STORY -->
+  <div class="story-wrap">
+    <div class="story-label">Instagram Story (9:16)</div>
+    <div class="story card">
+      <div class="story-top">
+        <div class="story-handle">
+          <div class="story-avatar">☕</div>
+          brewnoire.uz
+        </div>
+      </div>
+      <div class="story-center">
+        <span class="story-cup">☕</span>
+        <h2>Your mornings just got <em>better.</em></h2>
+        <p class="story-sub">Brew Noire is open.<br>Specialty coffee in Tashkent.</p>
+      </div>
+      <div class="story-bottom">
+        <button class="story-cta">Visit Us Today</button>
+        <div class="story-swipe">SWIPE UP FOR LOCATION</div>
+      </div>
+    </div>
+    <div class="card-caption" style="width:220px;border-radius:0 0 20px 20px">Story — Grand Opening</div>
+  </div>
+
+</div>
+
+<!-- DESIGN KEY -->
+<div class="key-section">
+  <div class="key-title">Design System</div>
+  <div class="key-grid">
+    <div class="key-chip">
+      <strong>Background</strong>
+      #1A1008 — Deep espresso
+    </div>
+    <div class="key-chip">
+      <strong>Primary Text</strong>
+      #F5EDDC — Warm cream
+    </div>
+    <div class="key-chip">
+      <strong>Accent Only</strong>
+      #C07A3A — Muted amber-orange
+    </div>
+    <div class="key-chip">
+      <strong>Display Font</strong>
+      Syne 800 — High-impact headlines
+    </div>
+    <div class="key-chip">
+      <strong>Body Font</strong>
+      DM Sans 300/400 — Light, airy
+    </div>
+    <div class="key-chip">
+      <strong>Format</strong>
+      3 × 1:1 Posts + 1 × 9:16 Story
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

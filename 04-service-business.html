@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Service Business Website Redesign — Mobile-First Layout</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:      #111214;
+    --ink-s:    #1D2025;
+    --steel:    #2C3038;
+    --gold:     #C49A3C;
+    --gold-l:   #D4AF6A;
+    --white:    #F8F7F4;
+    --white-m:  rgba(248,247,244,0.55);
+    --border:   rgba(248,247,244,0.08);
+    --radius:   10px;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--ink); color: var(--white);
+    line-height: 1.6;
+  }
+
+  /* ── UTILITY ── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+  section { padding: 80px 5%; }
+  .sec-label {
+    font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.6rem;
+  }
+  .sec-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    line-height: 1.0; letter-spacing: 0.02em;
+    color: var(--white); margin-bottom: 0.8rem;
+  }
+  .sec-sub {
+    font-size: 0.9rem; color: var(--white-m);
+    max-width: 500px; line-height: 1.75; margin-bottom: 2.5rem;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--ink);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5%; height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  .nav-icon {
+    width: 32px; height: 32px; background: var(--gold);
+    border-radius: 6px; display: flex; align-items: center;
+    justify-content: center; font-size: 1rem;
+  }
+  .nav-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem; letter-spacing: 0.06em; color: var(--white);
+  }
+  .nav-actions { display: flex; gap: 0.8rem; align-items: center; }
+  .nav-tel {
+    font-size: 0.8rem; font-weight: 600; color: var(--gold);
+    text-decoration: none;
+  }
+  .btn {
+    background: var(--gold); color: var(--ink);
+    border: none; border-radius: 6px;
+    padding: 0.5rem 1.1rem; font-size: 0.82rem; font-weight: 700;
+    cursor: pointer; text-decoration: none; display: inline-block;
+    transition: background 0.2s;
+  }
+  .btn:hover { background: var(--gold-l); }
+  .btn-outline {
+    background: transparent; color: var(--white);
+    border: 1px solid var(--border); border-radius: 6px;
+    padding: 0.5rem 1.1rem; font-size: 0.82rem; font-weight: 600;
+    cursor: pointer; text-decoration: none; display: inline-block;
+    transition: border-color 0.2s;
+  }
+  .btn-outline:hover { border-color: rgba(255,255,255,0.3); }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 100px 5% 80px;
+    background: var(--ink-s);
+    border-bottom: 1px solid var(--border);
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: "✂";
+    position: absolute; right: 5%; top: 50%;
+    transform: translateY(-50%) rotate(-20deg);
+    font-size: clamp(8rem, 20vw, 18rem);
+    opacity: 0.04; line-height: 1;
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(196,154,60,0.12); border: 1px solid rgba(196,154,60,0.25);
+    color: var(--gold); font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.3rem 0.75rem; border-radius: 20px;
+    margin-bottom: 1.4rem;
+  }
+  .hero-tag::before { content: "●"; font-size: 0.5rem; }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: 0.95; letter-spacing: 0.02em;
+    color: var(--white); margin-bottom: 1.4rem;
+    max-width: 700px;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero-sub {
+    font-size: 1rem; color: var(--white-m);
+    max-width: 480px; line-height: 1.75; margin-bottom: 2rem;
+  }
+  .hero-btns { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+  .btn-lg {
+    padding: 0.85rem 2rem; font-size: 0.9rem; font-weight: 700;
+    background: var(--gold); color: var(--ink);
+    border: none; border-radius: 8px; cursor: pointer;
+    transition: all 0.2s; text-decoration: none; display: inline-block;
+  }
+  .btn-lg:hover { background: var(--gold-l); transform: translateY(-2px); }
+  .btn-lg-out {
+    padding: 0.85rem 2rem; font-size: 0.9rem; font-weight: 600;
+    background: transparent; color: var(--white);
+    border: 1px solid var(--border); border-radius: 8px; cursor: pointer;
+    transition: border-color 0.2s; text-decoration: none; display: inline-block;
+  }
+  .btn-lg-out:hover { border-color: rgba(255,255,255,0.25); }
+  .hero-bar {
+    margin-top: 3.5rem;
+    display: flex; gap: 0;
+    border: 1px solid var(--border); border-radius: var(--radius);
+    overflow: hidden; max-width: 540px;
+    background: var(--steel);
+  }
+  .hero-bar-item {
+    flex: 1; padding: 0.9rem 1rem; text-align: center;
+    border-right: 1px solid var(--border);
+    font-size: 0.78rem; color: var(--white-m); line-height: 1.4;
+  }
+  .hero-bar-item:last-child { border-right: none; }
+  .hero-bar-item strong { display: block; color: var(--gold); font-size: 1.2rem; font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.04em; }
+
+  /* ── SERVICES ── */
+  .services { background: var(--ink); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--border);
+    border: 1px solid var(--border); border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .service-card {
+    background: var(--ink-s); padding: 2rem 1.6rem;
+    transition: background 0.2s;
+  }
+  .service-card:hover { background: var(--steel); }
+  .svc-icon { font-size: 1.8rem; margin-bottom: 1rem; display: block; }
+  .svc-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem; letter-spacing: 0.04em;
+    color: var(--white); margin-bottom: 0.4rem;
+  }
+  .svc-desc { font-size: 0.82rem; color: var(--white-m); line-height: 1.6; }
+  .svc-time {
+    margin-top: 0.8rem; font-size: 0.7rem; font-weight: 600;
+    color: var(--gold); letter-spacing: 0.06em; text-transform: uppercase;
+  }
+
+  /* ── WHY CHOOSE US ── */
+  .why { background: var(--ink-s); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .why-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+  }
+  .why-item {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1.6rem; background: var(--steel);
+    border-radius: var(--radius); border: 1px solid var(--border);
+  }
+  .why-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem; color: var(--gold); opacity: 0.6;
+    line-height: 1; flex-shrink: 0;
+  }
+  .why-text h4 {
+    font-weight: 600; font-size: 0.95rem;
+    color: var(--white); margin-bottom: 0.3rem;
+  }
+  .why-text p { font-size: 0.82rem; color: var(--white-m); line-height: 1.6; }
+
+  /* ── PRICING ── */
+  .pricing { background: var(--ink); }
+  .pricing-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem;
+  }
+  .price-card {
+    background: var(--ink-s); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 2rem 1.6rem;
+    position: relative; transition: border-color 0.2s;
+  }
+  .price-card:hover { border-color: rgba(196,154,60,0.3); }
+  .price-card.featured {
+    border-color: var(--gold);
+    background: linear-gradient(160deg, rgba(196,154,60,0.07) 0%, var(--ink-s) 60%);
+  }
+  .price-badge {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--gold); color: var(--ink);
+    font-size: 0.62rem; font-weight: 800; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 0.25rem 0.75rem; border-radius: 20px;
+    white-space: nowrap;
+  }
+  .price-tier {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.85rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.4rem;
+  }
+  .price-name { font-size: 1.1rem; font-weight: 600; color: var(--white); margin-bottom: 0.4rem; }
+  .price-amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem; color: var(--white); line-height: 1;
+    margin-bottom: 0.2rem;
+  }
+  .price-amount small { font-size: 0.9rem; letter-spacing: 0.04em; opacity: 0.5; }
+  .price-desc { font-size: 0.78rem; color: var(--white-m); margin-bottom: 1.2rem; line-height: 1.5; }
+  .price-divider { border: none; border-top: 1px solid var(--border); margin-bottom: 1.2rem; }
+  .price-features { list-style: none; }
+  .price-features li {
+    font-size: 0.8rem; color: var(--white-m);
+    padding: 0.25rem 0; display: flex; align-items: center; gap: 0.5rem;
+  }
+  .price-features li::before { content: "✓"; color: var(--gold); font-weight: 700; }
+
+  /* ── FAQ ── */
+  .faq { background: var(--ink-s); border-top: 1px solid var(--border); }
+  .faq-list { max-width: 700px; }
+  details {
+    border-bottom: 1px solid var(--border);
+  }
+  details:first-of-type { border-top: 1px solid var(--border); }
+  summary {
+    padding: 1.2rem 0;
+    cursor: pointer; list-style: none;
+    font-size: 0.95rem; font-weight: 600; color: var(--white);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; color: var(--gold); font-size: 1.2rem; font-weight: 300; transition: transform 0.2s; }
+  details[open] summary::after { transform: rotate(45deg); }
+  details p { font-size: 0.85rem; color: var(--white-m); line-height: 1.75; padding-bottom: 1.2rem; }
+
+  /* ── CONTACT FORM ── */
+  .contact { background: var(--ink); border-top: 1px solid var(--border); }
+  .contact-wrap {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+    align-items: flex-start;
+  }
+  .contact-info h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem; letter-spacing: 0.04em; color: var(--white);
+    margin-bottom: 0.4rem;
+  }
+  .contact-info p { font-size: 0.85rem; color: var(--white-m); line-height: 1.7; margin-bottom: 1.4rem; }
+  .contact-detail {
+    display: flex; align-items: center; gap: 0.75rem;
+    font-size: 0.85rem; color: var(--white-m);
+    margin-bottom: 0.6rem;
+  }
+  .contact-detail span { font-size: 1rem; }
+  .form-field { margin-bottom: 1rem; }
+  .form-field label {
+    display: block; font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--white-m); margin-bottom: 0.4rem;
+  }
+  .form-field input,
+  .form-field select,
+  .form-field textarea {
+    width: 100%;
+    background: var(--steel); color: var(--white);
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 0.75rem 1rem; font-size: 0.88rem;
+    font-family: 'Inter', sans-serif;
+    outline: none; transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+  .form-field input:focus,
+  .form-field select:focus,
+  .form-field textarea:focus { border-color: rgba(196,154,60,0.5); }
+  .form-field textarea { resize: none; height: 100px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+  .form-submit {
+    width: 100%; background: var(--gold); color: var(--ink);
+    border: none; border-radius: 8px; padding: 0.85rem;
+    font-size: 0.9rem; font-weight: 700;
+    cursor: pointer; transition: background 0.2s;
+    margin-top: 0.4rem; font-family: 'Inter', sans-serif;
+  }
+  .form-submit:hover { background: var(--gold-l); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0A0C0E; padding: 1.5rem 5%;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.75rem; color: var(--white-m);
+    flex-wrap: wrap; gap: 0.8rem;
+  }
+  .footer-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem; letter-spacing: 0.06em; color: var(--white);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .contact-wrap { grid-template-columns: 1fr; }
+    .hero h1 { font-size: clamp(2.5rem, 10vw, 4.5rem); }
+  }
+  @media (max-width: 600px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr; }
+    .hero-bar { flex-direction: column; }
+    .hero-bar-item { border-right: none; border-bottom: 1px solid var(--border); }
+    .hero-bar-item:last-child { border-bottom: none; }
+    .form-row { grid-template-columns: 1fr; }
+    nav .nav-tel { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-icon">✂</div>
+    <span class="nav-name">Sharif Barber</span>
+  </div>
+  <div class="nav-actions">
+    <a href="tel:+998712345678" class="nav-tel">+998 71 234 56 78</a>
+    <a href="#contact" class="btn">Book Now</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">Open Today 9:00 – 21:00</div>
+  <h1>Look sharp. <span>Leave better.</span></h1>
+  <p class="hero-sub">Tashkent's precision barbershop. Classic cuts, straight razor shaves, and fades that land exactly right — no guessing, no rushing.</p>
+  <div class="hero-btns">
+    <a href="#contact" class="btn-lg">Book an Appointment</a>
+    <a href="#services" class="btn-lg-out">See Services</a>
+  </div>
+  <div class="hero-bar">
+    <div class="hero-bar-item"><strong>8+</strong>Years open</div>
+    <div class="hero-bar-item"><strong>3</strong>Expert barbers</div>
+    <div class="hero-bar-item"><strong>4.9★</strong>Rating</div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="sec-label">What We Do</div>
+  <div class="sec-title">Every cut. <br>Every detail.</div>
+  <p class="sec-sub">We specialize in one thing: making you look exactly how you want to. From quick trims to full grooming sessions.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="svc-icon">✂</span>
+      <div class="svc-name">Classic Haircut</div>
+      <p class="svc-desc">Consultation, wash, cut, and finish. Scissors or clippers — tailored to your head shape and style preference.</p>
+      <div class="svc-time">≈ 30 min</div>
+    </div>
+    <div class="service-card">
+      <span class="svc-icon">🔲</span>
+      <div class="svc-name">Skin Fade</div>
+      <p class="svc-desc">Seamless blend from skin to length. Our most requested service — takes precision to nail, and we've done it thousands of times.</p>
+      <div class="svc-time">≈ 40 min</div>
+    </div>
+    <div class="service-card">
+      <span class="svc-icon">🪒</span>
+      <div class="svc-name">Straight Razor Shave</div>
+      <p class="svc-desc">Hot towel prep, straight razor shave, and moisturizing finish. A proper shave the old way — the best way.</p>
+      <div class="svc-time">≈ 25 min</div>
+    </div>
+    <div class="service-card">
+      <span class="svc-icon">🧔</span>
+      <div class="svc-name">Beard Trim & Shape</div>
+      <p class="svc-desc">Lines cleaned up, shape refined, edges crisp. Works as a standalone or add-on to your cut.</p>
+      <div class="svc-time">≈ 20 min</div>
+    </div>
+    <div class="service-card">
+      <span class="svc-icon">👦</span>
+      <div class="svc-name">Kids' Cut</div>
+      <p class="svc-desc">Calm, patient, kid-friendly. We know how to work with moving targets. Under 12 only.</p>
+      <div class="svc-time">≈ 20 min</div>
+    </div>
+    <div class="service-card">
+      <span class="svc-icon">💈</span>
+      <div class="svc-name">Full Grooming</div>
+      <p class="svc-desc">Cut + beard shape + straight razor finish. The complete session — walk out feeling like a different person.</p>
+      <div class="svc-time">≈ 75 min</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="why">
+  <div class="sec-label">Why Sharif Barber</div>
+  <div class="sec-title">Four things that <br>set us apart.</div>
+  <div class="why-grid">
+    <div class="why-item">
+      <div class="why-num">01</div>
+      <div class="why-text">
+        <h4>No Walk-In Wait</h4>
+        <p>Book your slot online or by phone — show up at your time and sit right down. We run on schedule, not hope.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-num">02</div>
+      <div class="why-text">
+        <h4>Real Consultation</h4>
+        <p>Before scissors touch your head, your barber listens. We ask the right questions so the result matches what's in your head.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-num">03</div>
+      <div class="why-text">
+        <h4>Premium Products Only</h4>
+        <p>We use professional-grade tools and grooming products — no shortcuts, nothing that will irritate your skin or dull your look.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-num">04</div>
+      <div class="why-text">
+        <h4>Same Barber, Every Time</h4>
+        <p>Request your preferred barber. We keep notes on your style so your third visit feels as good as your first.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="sec-label">Transparent Pricing</div>
+  <div class="sec-title">What to expect.</div>
+  <p class="sec-sub">No surprise charges. What you see here is what you pay. Tips are appreciated, never expected.</p>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-tier">Basic</div>
+      <div class="price-name">Quick Trim</div>
+      <div class="price-amount">35<small>K</small></div>
+      <div class="price-desc">Fast, clean, done right. Perfect for maintenance visits every 3–4 weeks.</div>
+      <hr class="price-divider" />
+      <ul class="price-features">
+        <li>Haircut or beard trim</li>
+        <li>15-min appointment</li>
+        <li>No wash included</li>
+      </ul>
+    </div>
+    <div class="price-card featured">
+      <div class="price-badge">Most Popular</div>
+      <div class="price-tier">Standard</div>
+      <div class="price-name">Classic Cut</div>
+      <div class="price-amount">65<small>K</small></div>
+      <div class="price-desc">The full haircut experience — wash, cut, style, finish. Most clients start here.</div>
+      <hr class="price-divider" />
+      <ul class="price-features">
+        <li>Consultation included</li>
+        <li>Wash + cut + finish</li>
+        <li>30–40 min appointment</li>
+        <li>Style product applied</li>
+      </ul>
+    </div>
+    <div class="price-card">
+      <div class="price-tier">Premium</div>
+      <div class="price-name">Full Grooming</div>
+      <div class="price-amount">120<small>K</small></div>
+      <div class="price-desc">Everything in Classic, plus beard shape and hot towel straight razor shave.</div>
+      <hr class="price-divider" />
+      <ul class="price-features">
+        <li>Everything in Classic</li>
+        <li>Beard shape & line-up</li>
+        <li>Straight razor shave</li>
+        <li>Hot towel & moisturizer</li>
+        <li>75-min appointment</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="sec-label">Questions</div>
+  <div class="sec-title">Quick answers.</div>
+  <div class="faq-list">
+    <details>
+      <summary>Do I need to book in advance?</summary>
+      <p>Booking ahead guarantees your slot and your preferred barber. Walk-ins are welcome if we have availability, but busy periods — especially weekends — fill up fast. We recommend booking at least a day ahead.</p>
+    </details>
+    <details>
+      <summary>Can I request a specific barber?</summary>
+      <p>Absolutely. When you book online or by phone, just let us know who you'd like. We'll do our best to match you, and if your barber isn't available, we'll suggest the closest slot.</p>
+    </details>
+    <details>
+      <summary>What if I'm not happy with my cut?</summary>
+      <p>Tell us before you leave. If anything is off, we fix it right then — no charge, no argument. Our goal is that you walk out satisfied. If you notice something later, contact us and we'll sort it out.</p>
+    </details>
+    <details>
+      <summary>Do you do kids' haircuts?</summary>
+      <p>Yes, for children under 12. We're patient and used to working with kids. Mention it when you book so we allocate the right time and barber for your appointment.</p>
+    </details>
+    <details>
+      <summary>Where are you located?</summary>
+      <p>We're at 18 Amir Temur Avenue, Tashkent. There's street parking in front and we're a short walk from the Amir Temur Hiyoboni metro station.</p>
+    </details>
+  </div>
+</section>
+
+<!-- CONTACT FORM -->
+<section class="contact" id="contact">
+  <div class="contact-wrap">
+    <div class="contact-info">
+      <div class="sec-label">Book an Appointment</div>
+      <h3>Ready when you are.</h3>
+      <p>Fill in the form and we'll confirm your slot within 30 minutes. Or call us directly — whatever's easier.</p>
+      <div class="contact-detail"><span>📍</span> 18 Amir Temur Avenue, Tashkent</div>
+      <div class="contact-detail"><span>📞</span> +998 71 234 56 78</div>
+      <div class="contact-detail"><span>📱</span> Telegram: @SharifBarber</div>
+      <div class="contact-detail"><span>🕐</span> Mon–Sat: 9:00 – 21:00 &nbsp;|&nbsp; Sun: 10:00 – 18:00</div>
+    </div>
+    <div class="contact-form">
+      <div class="form-row">
+        <div class="form-field">
+          <label>Your Name</label>
+          <input type="text" placeholder="Jasur Mirzayev" />
+        </div>
+        <div class="form-field">
+          <label>Phone Number</label>
+          <input type="tel" placeholder="+998 90 123 45 67" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Service</label>
+          <select>
+            <option value="">Select a service…</option>
+            <option>Quick Trim (35K)</option>
+            <option>Classic Cut (65K)</option>
+            <option>Skin Fade (70K)</option>
+            <option>Straight Razor Shave (50K)</option>
+            <option>Beard Trim (40K)</option>
+            <option>Full Grooming (120K)</option>
+            <option>Kids' Cut (40K)</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Preferred Date</label>
+          <input type="date" />
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Notes (optional)</label>
+        <textarea placeholder="Preferred barber, style reference, anything else…"></textarea>
+      </div>
+      <button class="form-submit">Request Booking →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-brand">✂ Sharif Barber</span>
+  <span>18 Amir Temur Ave, Tashkent &nbsp;|&nbsp; +998 71 234 56 78</span>
+  <span>Service Business Website Redesign — Mobile-First Layout</span>
+</footer>
+
+</body>
+</html>
